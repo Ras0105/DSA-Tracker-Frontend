@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>DSA Prep Tracker</title>
+    <script>
+      try {
+        var _t = localStorage.getItem("dsa_theme");
+        if (_t) document.documentElement.setAttribute("data-theme", _t);
+      } catch (e) {}
+    </script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="w">
+      <div class="hd">
+        <h1>DSA Prep Tracker</h1>
+        <button id="th" title="Toggle light/dark theme"></button>
+      </div>
+      <p class="sub">
+        Curated, de-duplicated LeetCode list by topic (492 problems; “N cos.” =
+        number of companies that asked it). Progress is saved in this browser.
+      </p>
+      <div class="card top">
+        <div class="bar"><i id="pb"></i></div>
+        <div class="stats" id="st"></div>
+      </div>
+      <div class="tabs">
+        <button id="tt" class="on">Topics</button
+        ><button id="tc">Companies</button><button id="tp">Progress</button>
+      </div>
+      <div class="f">
+        <input id="q" placeholder="Search problem, # or pattern…" />
+        <select id="fd">
+          <option value="">All difficulty</option>
+          <option>Easy</option>
+          <option>Medium</option>
+          <option>Hard</option>
+        </select>
+        <select id="fp">
+          <option value="">All priority</option>
+          <option>Must</option>
+          <option>Should</option>
+          <option>Stretch</option>
+        </select>
+        <select id="fs">
+          <option value="">All status</option>
+          <option>Not Started</option>
+          <option>In Progress</option>
+          <option>Solved</option>
+          <option>Revisit</option>
+        </select>
+        <select id="co" hidden></select
+        ><select id="tw" hidden>
+          <option value="3">All time</option>
+          <option value="2">Last 6 months</option>
+          <option value="1">Last 3 months</option>
+          <option value="0">Last 30 days</option></select
+        ><button id="rs">Reset progress</button>
+      </div>
+      <div id="app"></div>
+    </div>
+    <script src="data.js"></script>
+    <script src="companies.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
