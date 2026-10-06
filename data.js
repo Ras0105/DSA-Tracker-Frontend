@@ -67,7 +67,8 @@ const T=[
 [68,"Text Justification","H","X","Greedy line packing · 35 cos."],
 [273,"Integer to English Words","H","X","Chunk by thousands · 19 cos."],
 [10,"Regular Expression Matching","H","X","2D DP on pattern · 22 cos."],
-[44,"Wildcard Matching","H","X","2D DP / greedy two pointers · 16 cos."]
+[44,"Wildcard Matching","H","X","2D DP / greedy two pointers · 16 cos."],
+[30,"Substring with Concatenation of All Words","H","X","Fixed-size word window per offset · 10 cos."]
 ]},
 {"t":"Two Pointers","w":"Week 2","c":"Converging pointers, slow/fast pointers, sort + pointers","q":[
 [125,"Valid Palindrome","E","M","Left/right pointers, skip non-alphanumerics · 37 cos."],
@@ -121,7 +122,8 @@ const T=[
 [2461,"Maximum Sum of Distinct Subarrays With Length K","M","S","Fixed window + set"],
 [1838,"Frequency of the Most Frequent Element","M","S","Sort + window cost · 11 cos."],
 [340,"Longest Substring with At Most K Distinct Characters","M","M","Window + freq map · 12 cos."],
-[1438,"Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit","M","S","Two monotonic deques · 14 cos."]
+[1438,"Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit","M","S","Two monotonic deques · 14 cos."],
+[862,"Shortest Subarray with Sum at Least K","H","X","Prefix sums + monotonic deque"]
 ]},
 {"t":"Stack & Monotonic Stack","w":"Week 4","c":"Bracket matching, next-greater pattern, histogram, expression parsing","q":[
 [20,"Valid Parentheses","E","M","Stack of open brackets · 99 cos."],
@@ -154,7 +156,8 @@ const T=[
 [1209,"Remove All Adjacent Duplicates in String II","M","S","Stack of (char,count) · 18 cos."],
 [341,"Flatten Nested List Iterator","M","S","Stack of iterators · 18 cos."],
 [636,"Exclusive Time of Functions","M","S","Stack of call frames · 12 cos."],
-[769,"Max Chunks To Make Sorted","M","S","Running max == index"]
+[769,"Max Chunks To Make Sorted","M","S","Running max == index"],
+[895,"Maximum Frequency Stack","H","S","Map of frequency to stack of values · 11 cos."]
 ]},
 {"t":"Binary Search","w":"Week 4","c":"Lower/upper bound, rotated arrays, binary search on answer","q":[
 [704,"Binary Search","E","M","Template: lo, hi, mid · 13 cos."],
@@ -311,7 +314,9 @@ const T=[
 [1166,"Design File System","M","S","Hashmap / trie of paths · 11 cos."],
 [588,"Design In-Memory File System","H","X","Trie of dirs · 15 cos."],
 [642,"Design Search Autocomplete System","H","X","Trie + top-3 ranking · 13 cos."],
-[432,"All O`one Data Structure","H","X","Doubly-linked buckets · 13 cos."]
+[432,"All O`one Data Structure","H","X","Doubly-linked buckets · 13 cos."],
+[407,"Trapping Rain Water II","H","X","Min-heap BFS from the boundary inward · 12 cos."],
+[632,"Smallest Range Covering Elements from K Lists","H","X","Min-heap of one element per list · 10 cos."]
 ]},
 {"t":"Backtracking","w":"Week 8","c":"Choose-explore-unchoose, pruning, duplicate handling","q":[
 [78,"Subsets","M","M","Include / exclude decision tree · 21 cos."],
@@ -390,7 +395,9 @@ const T=[
 [286,"Walls and Gates","M","S","Multi-source BFS · 10 cos."],
 [934,"Shortest Bridge","M","S","DFS island then BFS · 17 cos."],
 [815,"Bus Routes","H","S","BFS over routes · 17 cos."],
-[505,"The Maze","M","S","Rolling DFS/Dijkstra · 13 cos."]
+[505,"The Maze","M","S","Rolling DFS/Dijkstra · 13 cos."],
+[126,"Word Ladder II","H","X","BFS for levels + DFS to rebuild all shortest paths · 16 cos."],
+[827,"Making A Large Island","H","S","Label islands by id/size, try flipping each 0 · 16 cos."]
 ]},
 {"t":"Dynamic Programming","w":"Week 10-11","c":"State + recurrence, knapsack types, LIS/LCS, grid and stock DP","q":[
 [70,"Climbing Stairs","E","M","dp[i] = dp[i-1] + dp[i-2] · 35 cos."],
@@ -520,6 +527,7 @@ const T=[
 [307,"Range Sum Query - Mutable","M","S","Fenwick / segment tree"],
 [315,"Count of Smaller Numbers After Self","H","X","Merge sort or BIT"],
 [493,"Reverse Pairs","H","X","Merge-sort counting"],
-[218,"The Skyline Problem","H","X","Sweep line + heap · 12 cos."]
+[218,"The Skyline Problem","H","X","Sweep line + heap · 12 cos."],
+[1192,"Critical Connections in a Network","H","X","Tarjan low-link values to find bridges · 10 cos."]
 ]}
 ];
