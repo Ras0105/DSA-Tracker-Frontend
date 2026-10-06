@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>DSA Prep Tracker</title>
+<script>try{var _t=localStorage.getItem("dsa_theme");if(_t)document.documentElement.setAttribute("data-theme",_t)}catch(e){}</script>
 <style>
 :root{--bg:#f6f7fb;--card:#fff;--tx:#1b2330;--mu:#6b7480;--bd:#e2e6ee;--ac:#3b5bdb;--ok:#2f9e44;--wa:#e8890c;--er:#d6336c;--e:#2f9e44;--m:#e8890c;--h:#d6336c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--card:#171e2e;--tx:#e6eaf2;--mu:#98a2b3;--bd:#27314a;--ac:#748ffc}}
@@ -27,10 +28,11 @@ summary::-webkit-details-marker{display:none}.tn{font-weight:600}.tn small{color
 .p-Must{font-weight:700}.p-Stretch{color:var(--mu);font-style:italic}.id{color:var(--mu);font-size:12.5px}
 .empty{padding:30px;text-align:center;color:var(--mu)}
 .tabs{display:flex;gap:8px;margin:12px 0 0}.tabs button.on{background:var(--ac);color:#fff;border-color:var(--ac)}.cs{color:var(--mu);margin:10px 0 0}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.rp{width:100%;border-collapse:collapse;min-width:760px}.rp th,.rp td{padding:8px 12px;border-top:1px solid var(--bd);text-align:left;white-space:nowrap;font-variant-numeric:tabular-nums}.rp th{color:var(--mu);font-weight:500;border-top:0}.rp tfoot td{font-weight:700}.pb{display:inline-block;width:90px;height:6px;vertical-align:middle;margin-right:8px}.act{display:flex;flex-wrap:wrap;gap:8px;padding:12px 14px;border-top:1px solid var(--bd);align-items:center;color:var(--mu)}
 </style></head><body><div class="w">
-<h1>DSA Prep Tracker</h1><p class="sub">Curated, de-duplicated LeetCode list by topic (492 problems; “N cos.” = number of companies that asked it).  Progress is saved in this browser.</p>
+<div class="hd"><h1>DSA Prep Tracker</h1><button id="th" title="Toggle light/dark theme"></button></div><p class="sub">Curated, de-duplicated LeetCode list by topic (492 problems; “N cos.” = number of companies that asked it).  Progress is saved in this browser.</p>
 <div class="card top"><div class="bar"><i id="pb"></i></div><div class="stats" id="st"></div></div>
-<div class="tabs"><button id="tt" class="on">Topics</button><button id="tc">Companies</button></div>
+<div class="tabs"><button id="tt" class="on">Topics</button><button id="tc">Companies</button><button id="tp">Progress</button></div>
 <div class="f"><input id="q" placeholder="Search problem, # or pattern…">
 <select id="fd"><option value="">All difficulty</option><option>Easy</option><option>Medium</option><option>Hard</option></select>
 <select id="fp"><option value="">All priority</option><option>Must</option><option>Should</option><option>Stretch</option></select>
@@ -71,8 +73,29 @@ GN.forEach((n,gi)=>{const r=g[n];if(!r)return;const sv=r.filter(x=>x[2]=="Solved
 h+=`<details class="card" data-i="c${gi}"${filt||open_["c"+gi]?" open":""}><summary><span class="tn">${n}</span><span class="cnt">${sv}/${r.length}</span><div class="bar"><i style="width:${sv/r.length*100}%"></i></div></summary><div class="sc">`+
 r.map(([p,k,s,f])=>`<div class="r s-${s}"><select data-n="${k}">${ST.map(o=>`<option${o==s?" selected":""}>${o}</option>`).join("")}</select><span class="n">${p[4]?"#"+p[4]:"-"}</span><a href="${esc(p[6])}" target="_blank" rel="noopener noreferrer">${esc(p[1])}</a><span class="d-${DF[p[2]]}">${DF[p[2]]}</span><span class="n">${f}%</span><span class="id">${esc(p[3])}</span></div>`).join("")+`</div></details>`});
 $("app").innerHTML=h.includes("<details")?h:h+'<div class="card empty">No problems match these filters.</div>';stats()}
-function render(){V=="c"?renderC():renderT()}
-function setV(v){V=v;$("tt").classList.toggle("on",v=="t");$("tc").classList.toggle("on",v=="c");["co","tw"].forEach(i=>$(i).hidden=v!="c");$("fp").hidden=v=="c";render()}
-$("tt").onclick=()=>setV("t");$("tc").onclick=()=>setV("c");["co","tw"].forEach(i=>$(i).addEventListener("input",render));
+function render(){V=="c"?renderC():V=="p"?renderP():renderT()}
+function setV(v){V=v;["t","c","p"].forEach(k=>$("t"+k).classList.toggle("on",v==k));["co","tw"].forEach(i=>$(i).hidden=v!="c");$("fp").hidden=v!="t";document.querySelector(".f").style.display=v=="p"?"none":"";saveUI();render()}
+$("tp").onclick=()=>setV("p");$("tt").onclick=()=>setV("t");$("tc").onclick=()=>setV("c");["co","tw"].forEach(i=>$(i).addEventListener("input",render));
+
+const eff=()=>document.documentElement.dataset.theme||(window.matchMedia&&matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light");
+const paintTh=()=>$("th").textContent=eff()=="dark"?"☀️ Light":"🌙 Dark";
+$("th").onclick=()=>{const n=eff()=="dark"?"light":"dark";document.documentElement.dataset.theme=n;try{localStorage.setItem("dsa_theme",n)}catch(e){}paintTh()};paintTh();
+function saveUI(){try{localStorage.setItem("dsa_ui_v1",JSON.stringify({v:V,co:$("co").value,tw:$("tw").value}))}catch(e){}}
+["co","tw"].forEach(i=>$(i).addEventListener("input",saveUI));
+function renderP(){const ix={E:0,M:1,H:2},R=T.map(t=>{const r={n:t.t,w:t.w,tot:t.q.length,sol:0,ip:0,rv:0,m:0,ms:0,d:[[0,0],[0,0],[0,0]]};
+t.q.forEach(([n,,d,p])=>{const s=st(n),i=ix[d];r.d[i][1]++;if(s=="Solved"){r.sol++;r.d[i][0]++}if(s=="In Progress")r.ip++;if(s=="Revisit")r.rv++;if(p=="M"){r.m++;if(s=="Solved")r.ms++}});return r});
+const sum=k=>R.reduce((a,r)=>a+r[k],0),dsum=(i,j)=>R.reduce((a,r)=>a+r.d[i][j],0),pc=(a,b)=>b?Math.round(a/b*100):0;
+const row=r=>`<td>${r.n}${r.w?`<small style="color:var(--mu)"> ${r.w}</small>`:""}</td><td><div class="bar pb"><i style="width:${pc(r.sol,r.tot)}%"></i></div>${r.sol}/${r.tot} (${pc(r.sol,r.tot)}%)</td><td class="d-Easy">${r.d[0][0]}/${r.d[0][1]}</td><td class="d-Medium">${r.d[1][0]}/${r.d[1][1]}</td><td class="d-Hard">${r.d[2][0]}/${r.d[2][1]}</td><td>${r.ms}/${r.m}</td><td>${r.ip}</td><td>${r.rv}</td>`;
+const tot={n:"Total",tot:sum("tot"),sol:sum("sol"),ip:sum("ip"),rv:sum("rv"),m:sum("m"),ms:sum("ms"),d:[0,1,2].map(i=>[dsum(i,0),dsum(i,1)])};
+const nx=R.filter(r=>r.ms<r.m).sort((a,b)=>pc(a.ms,a.m)-pc(b.ms,b.m))[0];
+$("app").innerHTML=`<div class="card"><div class="sc"><table class="rp"><thead><tr><th>Topic</th><th>Solved</th><th>Easy</th><th>Medium</th><th>Hard</th><th>Must-do</th><th>In progress</th><th>Revisit</th></tr></thead><tbody>${R.map(r=>`<tr>${row(r)}</tr>`).join("")}</tbody><tfoot><tr>${row(tot)}</tr></tfoot></table></div>
+<div class="act"><span>${nx?`Next focus: <b style="color:var(--tx)">${nx.n}</b> (${nx.ms}/${nx.m} must-do solved)`:"All must-do problems solved!"}</span><span style="flex:1"></span><button id="ex">Export progress</button><button id="im">Import progress</button><button id="rc">Download report (CSV)</button><input type="file" id="fi" accept=".json" hidden></div></div>`;
+const dl=(name,txt,type)=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([txt],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+$("ex").onclick=()=>dl("dsa_progress.json",JSON.stringify(S,null,1),"application/json");
+$("rc").onclick=()=>dl("dsa_report.csv",["Topic,Solved,Total,Easy solved,Easy total,Medium solved,Medium total,Hard solved,Hard total,Must solved,Must total,In progress,Revisit"].concat(R.concat([tot]).map(r=>[`"${r.n}"`,r.sol,r.tot,r.d[0][0],r.d[0][1],r.d[1][0],r.d[1][1],r.d[2][0],r.d[2][1],r.ms,r.m,r.ip,r.rv].join(","))).join("\n"),"text/csv");
+$("im").onclick=()=>$("fi").click();
+$("fi").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const o=JSON.parse(rd.result);if(!o||typeof o!="object"||Array.isArray(o))throw 0;Object.assign(S,o);save();renderP()}catch(x){alert("Invalid progress file")}};rd.readAsText(f)};
+stats()}
+try{const u=JSON.parse(localStorage.getItem("dsa_ui_v1")||"{}");if(u.co&&C[u.co])$("co").value=u.co;if(u.tw)$("tw").value=u.tw;if(u.v&&u.v!="t")setV(u.v)}catch(e){}
 render();
 </script></body></html>
