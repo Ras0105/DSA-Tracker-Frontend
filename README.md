@@ -5,7 +5,7 @@ No build step, no backend, no account. Open `index.html` and start solving. Your
 
 ## Features
 
-- **Topics tab**: 492 curated, de-duplicated LeetCode problems across 15 topics, each tagged
+- **Topics tab**: 500 curated, de-duplicated LeetCode problems across 15 topics, each tagged
   Easy/Medium/Hard and Must / Should / Stretch, with a one-line pattern hint.
   Problems asked by many companies show an "N cos." note.
 - **Companies tab**: pick a company (428 available) and see every problem it has asked, grouped by topic and
